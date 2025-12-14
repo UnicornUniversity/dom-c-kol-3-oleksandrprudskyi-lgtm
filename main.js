@@ -1,5 +1,6 @@
 //TODO v případě potřeby přidá importy
 //VŠECHNY doc
+
 /**
  * Hlavní funkce, která volá aplikaci. 
  * Zde prosím přidejte konkrétní popis pro účely aplikace.
@@ -22,10 +23,10 @@ export function main(dtoIn) {
     return generateEmployees(count, minAge, maxAge);
 }
 
-
-    // konfigurace
+// konfigurace
 const Gender = Object.freeze({ MALE: "male", FEMALE: "female" });
 const AllowedWorkloads = [10, 20, 30, 40];
+
 // seznamy jmen a příjmení
 const maleNames = [
     "Jan", "Petr", "Josef", "Pavel", "Martin", "Tomáš", "Jaroslav", "Lukáš", "Milan", "David",
@@ -48,7 +49,14 @@ const surnames = [
     "Šimek", "Kratochvíl", "Vlček", "Polák", "Musil", "Štěpánek", "Kopecký", "Holub", "Soukup", "Bláha",
     "Vít", "Bureš", "Kadlec", "Zbořil", "Tomášek", "Horáček", "Veverka", "Bartoš", "Benda", "Havel"
 ];
-// pomocne funkce
+
+// pomocné funkce
+
+/**
+ * Validuje vstupní parametry
+ * @param {object} dtoIn - vstupní parametry
+ * @throws {Error} pokud parametry nejsou platné
+ */
 function validateDtoIn(dtoIn) {
     if (!dtoIn || typeof dtoIn !== "object") {
         throw new Error("dtoIn musi byt objekt");
@@ -67,11 +75,18 @@ function validateDtoIn(dtoIn) {
     if (!(min <= max)) {
         throw new Error("dtoIn.age.min musi byt mensi nebo rovno dtoIn.age.max");
     }
-    if (min < 0) { throw new Error("dtoIn.age.min nesmi byt zaporne");
+    if (min < 0) { 
+        throw new Error("dtoIn.age.min nesmi byt zaporne");
     }
 }
 
-// generovani zamestnancu
+/**
+ * Generuje seznam zaměstnanců
+ * @param {number} count - počet zaměstnanců
+ * @param {number} minAge - minimální věk
+ * @param {number} maxAge - maximální věk
+ * @returns {Array} seznam zaměstnanců
+ */
 function generateEmployees(count, minAge, maxAge) {
     const employees = [];
     for (let i = 0; i < count; i++) {
@@ -91,23 +106,57 @@ function generateEmployees(count, minAge, maxAge) {
     }
     return employees;
 }
+
+/**
+ * Vrací náhodné pohlaví (male/female)
+ * @returns {string} náhodné pohlaví
+ */
 function randomGender() {
     return Math.random() < 0.5 ? Gender.MALE : Gender.FEMALE;
 }
+
+/**
+ * Vybírá náhodný prvek z pole
+ * @param {Array} arr - pole prvků
+ * @returns {*} náhodný prvek z pole
+ */
 function randomFromArray(arr) {
     return arr[Math.floor(Math.random() * arr.length)];
 }
+
+/**
+ * Vrací náhodné jméno podle pohlaví
+ * @param {string} gender - pohlaví (male/female)
+ * @returns {string} náhodné jméno
+ */
 function randomName(gender) {
-    return gender === Gender.MALE ? randomFromArray(maleNames) : randomFromArray(femaleNames);
+    return gender === Gender.MALE 
+        ? randomFromArray(maleNames) 
+        : randomFromArray(femaleNames);
 }
+
+/**
+ * Vrací náhodné příjmení
+ * @returns {string} náhodné příjmení
+ */
 function randomSurname() {
     return randomFromArray(surnames);
 }
+
+/**
+ * Vrací náhodnou pracovní zátěž
+ * @returns {number} náhodná pracovní zátěž
+ */
 function randomWorkload() {
     return randomFromArray(AllowedWorkloads);
 }
-/* Genereruje datum narození v rozmezí věku minAge až maxAge.
- *Pouzity prumerny pocet dnu v roce 365.25 pro zohledneni prestupnych let. 
+
+/**
+ * Generuje datum narození v rozmezí věku minAge až maxAge.
+ * Použit průměrný počet dní v roce 365.25 pro zohlednění přestupných let.
+ * @param {number} minAge - minimální věk
+ * @param {number} maxAge - maximální věk
+ * @returns {string} datum narození ve formátu ISO
  */
 function generateBirthdate(minAge, maxAge) {
     const now = new Date();
