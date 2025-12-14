@@ -94,9 +94,6 @@ function generateEmployees(count, minAge, maxAge) {
 function randomGender(arr) {
     return arr[Math.floor(Math.random() * arr.length)];
 }
-function randomGender() {
-    return Math.random() < 0.5 ? Gender.MALE : Gender.FEMALE;
-}
 function randomName(gender) {
     return gender === Gender.MALE ? randomFromArray(maleNames) : randomFromArray(femaleNames);
 }
